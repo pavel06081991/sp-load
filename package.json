@@ -1,0 +1,35 @@
+{
+  "name": "sp-load",
+  "version": "0.0.0",
+  "description": "on demand modules loading",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "pavel06081991/sp-load",
+  "keywords": [
+    "loading",
+    "load",
+    "load modules on demand",
+    "load module on demand",
+    "load on demand",
+    "modules on demand",
+    "module on demand",
+    "on demand",
+    "lazy",
+    "lazy load",
+    "lazy modules",
+    "lazy module",
+    "require",
+    "require on demand",
+    "require modules on demand",
+    "require module on demand"
+  ],
+  "author": "pavel06081991",
+  "license": "ISC",
+  "dependencies": {
+    "camelcase": "^2.0.1",
+    "findup-sync": "^0.3.0",
+    "string-to-regexp": "^0.1.0"
+  }
+}
