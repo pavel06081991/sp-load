@@ -1,7 +1,7 @@
 {
   "name": "sp-load",
-  "version": "0.0.0",
-  "description": "on demand modules loading",
+  "version": "1.0.0",
+  "description": "Modules loader. No lots of require calls on the top of files. On demand modules loading. Local modules.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,13 +23,16 @@
     "require",
     "require on demand",
     "require modules on demand",
-    "require module on demand"
+    "require module on demand",
+    "local modules",
+    "local"
   ],
   "author": "pavel06081991",
   "license": "ISC",
   "dependencies": {
-    "camelcase": "^2.0.1",
     "findup-sync": "^0.3.0",
+    "lodash": "^3.10.1",
+    "is-there": "^4.3.0",
     "string-to-regexp": "^0.1.0"
   }
 }
