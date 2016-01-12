@@ -249,3 +249,20 @@ Here is example of _sp-load.json:
     }
 }
 ```
+
+Also when you do var $ = require('sp-load');, the object $ has property "_spModulesList" in its prototype object. It
+contains object where the keys are modules names(external modules and local modules) and the values are modules paths.
+For examples(camelizing option is set to false):
+
+```javascript
+{
+    "lodash": "lodash",
+    "sp-load": "sp-load",
+    "gulp": "gulp",
+    "webpack": "webpack",
+    "core": "D://your-project//core//core.js",
+    "some-module": "D://your-project//deep//deep//deep//deep//deep//deep//deep//some-module.js"
+}
+```
+
+It may be usefull if you want for example to load some local module using System.js loader.
