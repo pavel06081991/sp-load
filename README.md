@@ -34,7 +34,7 @@ For example you have `package.json` file, here is its content:
     },
     "_localDependencies": {
         "core": "./core/core",
-        "some-module": "/deep/deep/deep/deep/deep/deep/deep/some-module"
+        "some-module": "./deep/deep/deep/deep/deep/deep/deep/some-module"
     }
 }
 ```
@@ -173,7 +173,7 @@ Here is example of package.json with configs(description of each config option s
     },
     "_localDependencies": {
         "core": "./core/core",
-        "some-module": "/deep/deep/deep/deep/deep/deep/deep/some-module"
+        "some-module": "./deep/deep/deep/deep/deep/deep/deep/some-module"
     },
     "_sp-load": {
         /*
@@ -235,7 +235,7 @@ Here is example of _sp-load.json:
 {
     "_localDependencies": {
         "core": "./core/core",
-        "some-module": "/deep/deep/deep/deep/deep/deep/deep/some-module"
+        "some-module": "./deep/deep/deep/deep/deep/deep/deep/some-module"
     },
     "_sp-load": {
         "camelizing": false,
