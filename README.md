@@ -162,7 +162,7 @@ Here is example of package.json with configs(description of each config option s
 {
     "name": "your-project",
     "version": "1.0.0",
-    "main": "index.js"
+    "main": "index.js",
     "dependencies": {
         "lodash": "^3.10.1",
         "sp-load": "^1.0.0"
@@ -217,7 +217,7 @@ Here is example of package.json:
 {
     "name": "your-project",
     "version": "1.0.0",
-    "main": "index.js"
+    "main": "index.js",
     "dependencies": {
         "lodash": "^3.10.1",
         "sp-load": "^1.0.0"
