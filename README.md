@@ -238,25 +238,11 @@ Here is example of _sp-load.json:
         "some-module": "/deep/deep/deep/deep/deep/deep/deep/some-module"
     },
     "_sp-load": {
-        /*
-            if true, modules names will be transformed to camel case,
-            for example $.someModule instead of $['some-module'].
-            default value is true.
-        */
         "camelizing": false,
-        /*
-            this option renames modules names. for example instead of $.lodash, lodash module will be available as $._
-        */
         "renaming": {
             "lodash": "_",
             "gulp": "supergulp"
         },
-        /*
-            if you want to replace some part of modules names use this option. The key is regular expression(regexp),
-            the value is a replace string. For example you have gulp plugins. The names of most gulp plugins start with
-            "gulp-" prefix, for example "gulp-concat". And you want to use this plugin as $.concat instead of
-            $.gulpConcat
-        */
         "replacing": {
             "/^gulp-/": ""
         }
