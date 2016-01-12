@@ -23,7 +23,7 @@ For example you have `package.json` file, here is its content:
 {
     "name": "your-project",
     "version": "1.0.0",
-    "main": "index.js"
+    "main": "index.js",
     "dependencies": {
         "lodash": "^3.10.1",
         "sp-load": "^1.0.0"
@@ -41,7 +41,7 @@ For example you have `package.json` file, here is its content:
 
 And you have the next files structure:
 
-```json
+```javascript
 your-project/
     node_modules
         sp-load/
@@ -72,16 +72,11 @@ Here is content of gulpfile.js:
 ```javascript
 'use strict';
 
-var $ = require('sp-load');
+var $ = require('sp-load'),
+    webpackConfig = {};
 
 $.gulp.task("webpack", function (callback) {
-  $.webpack(webpack_config, function (err, stats) {
-    if (err) throw new $.util.PluginError("webpack", err);
-
-    $.util.log("[webpack]", stats.toString({
-      // output options
-    }));
-
+  $.webpack(webpackConfig, function (err, stats) {
     callback();
   });
 });
@@ -163,7 +158,7 @@ core();
 You can configure sp-load. Just add "_sp-load" property in package.json.
 Here is example of package.json with configs(description of each config option see in comments):
 
-```json
+```javascript
 {
     "name": "your-project",
     "version": "1.0.0",
