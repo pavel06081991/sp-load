@@ -6,26 +6,27 @@ var path = require('path'),
   _ = require('lodash'),
   isThere = require('is-there'),
 
-  loadOnDemand = {
+  spLoad = {
     CONFIG_FILE_NAME: 'package.json',
     ADDITIONAL_CONFIG_FILE_NAME: '_sp-load.json',
-    LOCAL_MODULES_PROPERTY: '_localDependencies',
     CONFIG_PROPERTY_NAME: '_sp-load',
-
-    defaultConfig: {
-      camelizing: true
-    },
-    
-    externalModulesProperties: [
+    LOCAL_MODULES_PROPERTY: '_localDependencies',
+    CORE_MODULES_PROPERTY: '_coreDependencies',
+    EXTERNAL_MODULES_PROPERTIES: [
       'dependencies',
       'devDependencies',
       'peerDependencies'
     ],
 
+    defaultConfig: {
+      camelizing: true
+    },
+
     get modulesProperties() {
-      var modulesProperties = _.clone(this.externalModulesProperties);
+      var modulesProperties = _.clone(this.EXTERNAL_MODULES_PROPERTIES);
 
       modulesProperties.push(this.LOCAL_MODULES_PROPERTY);
+      modulesProperties.push(this.CORE_MODULES_PROPERTY);
 
       Object.defineProperty(this, 'modulesProperties', {
         configurable: true,
@@ -89,14 +90,21 @@ var path = require('path'),
 
       this.modulesProperties.forEach((modulesProperty) => {
         _.forOwn(this.configFileContent[modulesProperty], (modulePath, moduleName) => {
-          this.modulesList[moduleName] = this.isExternalModulesProperty(modulesProperty) ? moduleName :
-            path.resolve(this.configDirPath, modulePath);
+          if (this.isExternalModulesProperty(modulesProperty) || this.isCoreModulesProperty(modulesProperty)) {
+            this.modulesList[moduleName] = moduleName;
+          } else {
+            this.modulesList[moduleName] = path.resolve(this.configDirPath, modulePath);
+          }
         });
       });
     },
 
     isExternalModulesProperty: function(modulesProperty) {
-      return this.externalModulesProperties.indexOf(modulesProperty) !== -1;
+      return this.EXTERNAL_MODULES_PROPERTIES.indexOf(modulesProperty) !== -1;
+    },
+
+    isCoreModulesProperty: function(modulesProperty) {
+      return modulesProperty === this.CORE_MODULES_PROPERTY;
     },
 
     formatModulesNames: function() {
@@ -177,4 +185,4 @@ var path = require('path'),
     }
   };
 
-module.exports = loadOnDemand.getModules.bind(loadOnDemand);
+module.exports = spLoad;

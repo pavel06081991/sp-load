@@ -35,6 +35,10 @@ For example you have `package.json` file, here is its content:
     "_localDependencies": {
         "core": "./core/core",
         "some-module": "./deep/deep/deep/deep/deep/deep/deep/some-module"
+    },
+    "_coreDependencies": {
+        "path": "path",
+        "fs": "fs"
     }
 }
 ```
@@ -126,6 +130,10 @@ Also as you can see in package.json there is a property "_localDependencies". In
 modules of your project. Just define module name as key and path of module as value. Path must be relative to
 package.json file.
 
+Also as you can see in package.json there is a property "_coreDependencies". In this property you can define core
+modules of nodejs, for example "path" or "fs" modules. Just define module name as key and anything as value. Value
+is not used but must be defined, so "path": "path" and "path": "abcdefg" will work equally.
+
 If you want to use modules without using "$" object, you can do like in the next examples.
 Here is example with using "es6 destructuring assignment". To use es6 features in node js, read node js documenation
 how to turn on "es6":
@@ -175,6 +183,10 @@ Here is example of package.json with configs(description of each config option s
         "core": "./core/core",
         "some-module": "./deep/deep/deep/deep/deep/deep/deep/some-module"
     },
+    "_coreDependencies": {
+        "path": "path",
+        "fs": "fs"
+    },
     "_sp-load": {
         /*
             if true, modules names will be transformed to camel case,
@@ -202,8 +214,8 @@ Here is example of package.json with configs(description of each config option s
 }
 ```
 
-Maybe you do not want to put configs and local modules list to package.json, you can create _sp-load.json and put it
-to package.json file directory.
+Maybe you do not want to put configs and local and core modules lists to package.json, you can create _sp-load.json
+and put this file to package.json file directory.
 
 ```javascript
 yourProject/
@@ -237,6 +249,10 @@ Here is example of _sp-load.json:
         "core": "./core/core",
         "some-module": "./deep/deep/deep/deep/deep/deep/deep/some-module"
     },
+    "_coreDependencies": {
+        "path": "path",
+        "fs": "fs"
+    },
     "_sp-load": {
         "camelizing": false,
         "renaming": {
@@ -251,11 +267,14 @@ Here is example of _sp-load.json:
 ```
 
 Also when you do var $ = require('sp-load');, the object $ has property "_spModulesList" in its prototype object. It
-contains object where the keys are modules names(external modules and local modules) and the values are modules paths.
+contains object where the keys are modules names(external, core and local modules) and the values are modules paths.
+For local modules paths are absolute paths to modules files. For core and external modules paths are modules names.
 For examples(camelizing option is set to false):
 
 ```javascript
 {
+    "path": "path",
+    "fs": "fs",
     "lodash": "lodash",
     "sp-load": "sp-load",
     "gulp": "gulp",

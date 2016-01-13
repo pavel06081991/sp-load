@@ -1,10 +1,5 @@
 'use strict';
 
-var spLoad = require('./sp-load'),
-  spLoadProxy = function() {
-    return spLoad(module.parent);
-  };
-
-module.exports = spLoadProxy();
+module.exports = require('./sp-load').getModules(module.parent);
 
 delete require.cache[__filename];
