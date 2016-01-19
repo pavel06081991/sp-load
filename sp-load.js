@@ -37,20 +37,15 @@ var path = require('path'),
       return modulesProperties;
     },
 
+    moduleDirPathPattern: /.*?node_modules(?!.*node_modules)(\\|\/)[^(\\|\/)]*/,
+
     modulesStorage: {},
 
     getModules: function(parentModule) {
-      this.setInitialData(parentModule);
+      this.parentModule = parentModule;
       this.registerModules();
 
       return this.modulesStorage[this.configDirPath];
-    },
-
-    setInitialData: function(parentModule) {
-      this.configFilePath = findup(this.CONFIG_FILE_NAME, {cwd: path.resolve(parentModule.filename, '../')});
-      this.configDirPath = path.resolve(this.configFilePath, '../');
-      this.additionalConfigFilePath = path.resolve(this.configDirPath, this.ADDITIONAL_CONFIG_FILE_NAME);
-      this.parentModule = parentModule;
     },
 
     registerModules: function() {
@@ -62,6 +57,8 @@ var path = require('path'),
     },
 
     getConfig: function() {
+      this.configFilePath = path.resolve(this.configDirPath, this.CONFIG_FILE_NAME);
+      this.additionalConfigFilePath = path.resolve(this.configDirPath, this.ADDITIONAL_CONFIG_FILE_NAME);
       this.configFileContent = _.clone(require(this.configFilePath), true);
       this.additionalConfigFileContent = isThere(this.additionalConfigFilePath) && require(this.additionalConfigFilePath);
 
@@ -72,6 +69,18 @@ var path = require('path'),
     },
 
     isConfigResolved: function() {
+      var configFilePath = this.parentModule.filename.match(this.moduleDirPathPattern);
+
+      if (_.isNull(configFilePath) && this.projectConfigDirPath) {
+        this.configDirPath = this.projectConfigDirPath;
+      } else if (_.isArray(configFilePath)) {
+        this.configDirPath = configFilePath[0];
+      } else {
+        this.configFilePath = findup(this.CONFIG_FILE_NAME, {cwd: path.resolve(this.parentModule.filename, '../')});
+        this.configDirPath = path.resolve(this.configFilePath, '../');
+        this.projectConfigDirPath = this.configDirPath;
+      }
+
       return this.modulesStorage[this.configDirPath] ? true : false;
     },
 
